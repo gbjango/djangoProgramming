@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block contents %}
+<div class="row mt-5">
+  <div class="col-12">
+    <div class="card" style="width: 110%;">
+      <div class="card-body">
+        <h5 class="card-title">내용보기</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">제목: {{ post.title }}</li>
+        <li class="list-group-item">
+            <img src="{{ post.image_address }}" alt="...">
+        </li>
+        <li class="list-group-item">작성자: {{ post.writer }}</li>
+        <li class="list-group-item">게시일: {{ post.registered_dttm|date:'Y-m-d H:i' }}</li>
+        <li class="list-group-item">내용 : {{ post.contents }} </li>
+        <li class="list-group-item">태그 : {{ post.tags.all|join:", " }}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <div class="col-12">
+      <a href="/">
+        <button type="submit" class="btn btn-primary">목록보기</button>  
+      </a>
+    </div>
+  </div>
+</div>
+  {% endblock %}

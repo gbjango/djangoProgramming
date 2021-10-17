@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block contents %}
+<div class="card-group" style="margin-top: 50px;">
+{% for post in object_list %}
+  <!-- <a href="/post/{{ post.id }}"> -->
+    <div class="card" style="max-width: 20rem;" style="padding-top: 100px">
+      <div class="card-header">작성자 {{ post.writer }}</div>
+        <a href="{% url 'post' pk=post.pk %}">
+          <img src="{{ post.image_address }}" class="card-img-top" alt="사진을 가져올 수 없습니다." width=200px height=200px >
+        </a>
+        <div class="card-body">
+          <h5 class="card-title">제목 : {{ post.title }}</h5>
+          <p class="card-text">내용 : {{ post.contents }}</p>
+          <p class="card-text">작성일 : <small class="text-muted">{{ post.registered_dttm }}</small></p>
+          <span id="tags" class="form-control">
+            태그 : {{ post.tags.all|join:", " }}
+          </span>
+        </div>
+        <a href="{% url 'post' pk=post.pk %}" class="text-center">
+          <button type="submit" class="btn btn-primary">내용보기</button>  
+        </a>
+    </div>
+  <!-- </a> -->
+{% endfor %}
+</div>
+<!-- pagenation -->
+<div class="row mt-5">
+    <div class="col-12">
+    <!-- {% if is_paginated %} -->
+      <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{page_obj.previous_page_number}}">이전으로</a>
+        </li>  
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link disabled" href="#">이전으로</a>
+        </li>
+        {% endif %}
+        <li class="page-item active">
+          <a class="page-link" href="#">{{page_obj.number}}/{{page_obj.paginator.num_pages}}</a>
+        </li>
+        {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{page_obj.next_page_number}}">다음으로</a>
+        </li> 
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" href="#">다음으로</a>
+        </li>  
+        {% endif %}
+      </ul>
+    </div>
+    <!-- {% endif %} -->
+  </div>
+{% endblock %}
